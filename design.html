@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MD COLLECTION</title>
+<style>
+/* ===== Global Styles ===== */
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  color:#111;
+  text-align:center;
+  background: linear-gradient(270deg, #87CEFA, #FFA07A, #B0E0E6, #FFD700);
+  background-size: 800% 800%;
+  animation: gradientBG 20s ease infinite;
+}
+@keyframes gradientBG{
+  0%{background-position:0% 50%;}
+  25%{background-position:50% 50%;}
+  50%{background-position:100% 50%;}
+  75%{background-position:50% 50%;}
+  100%{background-position:0% 50%;}
+}
+a{text-decoration:none; color:inherit;}
+
+/* ===== Header Icons ===== */
+.header-icons{
+  position:fixed;
+  top:10px;
+  right:10px;
+  display:flex;
+  gap:10px;
+  z-index:2000;
+  align-items:center;
+}
+.header-icons img{
+  width:28px;
+  height:28px;
+  cursor:pointer;
+}
+#searchBar{
+  padding:4px 8px;
+  border-radius:5px;
+  border:none;
+  font-size:14px;
+}
+
+/* ===== Headings ===== */
+h1#mainHeading{
+  padding:20px 40px;
+  font-weight:bold;
+  color:#111;
+  margin:20px auto;
+}
+.small-text{ font-size:14px; color:#333; margin-bottom:20px; }
+
+/* ===== Gallery ===== */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+  padding:20px;
+}
+.card{
+  background:#ffffffcc;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 6px 20px rgba(0,0,0,0.2);
+  transition:0.5s ease;
+  cursor:pointer;
+}
+.card:hover{
+  transform:translateY(-8px) scale(1.03);
+  box-shadow:0 12px 25px rgba(0,0,0,0.35);
+}
+.card img{
+  width:100%;
+  height:350px;
+  object-fit:cover;
+}
+
+/* ===== Card Content ===== */
+.card-content{
+  padding:10px 15px;
+  background:#f0f8ff;
+  border-top:1px solid #ddd;
+  border-radius:0 0 15px 15px;
+  color:#111;
+}
+.title{ font-size:18px; font-weight:bold; color:black; margin:5px 0; }
+.price{ font-size:16px; margin:2px 0; color:#ff8c00; }
+
+/* ===== Modals ===== */
+.modal{
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+.modal-content{
+  background: linear-gradient(135deg,#444,#222);
+  padding:25px;
+  border-radius:15px;
+  max-width:500px;
+  width:90%;
+  text-align:left;
+  box-shadow:0 10px 30px rgba(0,0,0,0.7);
+  position:relative;
+  color:white;
+}
+
+/* ===== Payment Modal ===== */
+.payment-header{ color:#00e6e6; text-align:center; margin-bottom:15px; }
+.payment-info p{ font-size:16px; margin:6px 0; background:#11111144; padding:8px; border-radius:5px; }
+.copy-icon{ cursor:pointer; color:#00e6e6; margin-left:5px; transition:0.3s; }
+.copy-icon:hover{ transform:scale(1.2); }
+
+/* ===== Measurement Form ===== */
+.measure-header{ color:#ffcc00; text-align:center; margin-bottom:15px; }
+.input-group{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:10px; }
+.input-group label{ min-width:80px; font-size:14px; color:white; text-align:left; }
+.input-group input{ width:50px; height:50px; text-align:center; font-size:16px; border-radius:5px; border:none; background:#555; color:white; }
+select{ width:100%; height:40px; margin-bottom:10px; border-radius:5px; font-size:16px; background:#555; color:white; border:none; }
+textarea{ width:100%; resize:vertical; padding:8px; border-radius:5px; margin-bottom:10px; background:#333; color:white; }
+.cancel-btn{ background:#ff4444; color:white; margin-top:5px; padding:10px; border:none; border-radius:8px; cursor:pointer; }
+button.confirm-btn, a.confirm-btn{
+  background:#25d366;
+  color:white;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  width:100%;
+  margin-top:10px;
+  display:inline-block;
+  text-align:center;
+}
+
+/* ===== Section ===== */
+.section-heading{
+  color:#111;
+  font-size:22px;
+  margin-top:30px;
+}
+.note{ font-size:14px; color:#333; margin-bottom:15px; }
+
+</style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<div class="header-icons">
+  <a href="https://wa.me/2348149608006" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"></a>
+  <input type="text" id="searchBar" placeholder="Search Kaptan..." onkeyup="searchKaptans()">
+</div>
+
+<h1 id="mainHeading">MD COLLECTION</h1>
+<p class="small-text">You can send your styles through our WhatsApp or for more information.</p>
+
+<!-- ===== KAPTANS ===== -->
+<div class="gallery" id="gallery">
+  <div class="card" onclick="openPayment('Classic Kaptan')">
+    <img src="https://i.imgur.com/fsdYxPK.jpeg" alt="Classic Kaptan">
+    <div class="card-content">
+      <div class="title">Classic Kaptan</div>
+      <div class="price">Long: ₦21,000</div>
+      <div class="price">Short: ₦18,000</div>
+    </div>
+  </div>
+  <div class="card" onclick="openPayment('Stylish Kaptan')">
+    <img src="https://i.imgur.com/PJ1LnvI.jpeg" alt="Stylish Kaptan">
+    <div class="card-content">
+      <div class="title">Stylish Kaptan</div>
+      <div class="price">Long: ₦25,000</div>
+      <div class="price">Short: ₦20,000</div>
+    </div>
+  </div>
+  <div class="card" onclick="openPayment('Elegant Kaptan')">
+    <img src="https://i.imgur.com/nZgbZfT.jpeg" alt="Elegant Kaptan">
+    <div class="card-content">
+      <div class="title">Elegant Kaptan</div>
+      <div class="price">Long: ₦25,000</div>
+      <div class="price">Short: ₦20,000</div>
+    </div>
+  </div>
+  <div class="card" onclick="openPayment('Premium Kaptan')">
+    <img src="https://i.imgur.com/pa977uJ.jpeg" alt="Premium Kaptan">
+    <div class="card-content">
+      <div class="title">Premium Kaptan</div>
+      <div class="price">Long: ₦25,000</div>
+      <div class="price">Short: ₦20,000</div>
+    </div>
+  </div>
+  <div class="card" onclick="openPayment('Royal Kaptan')">
+    <img src="https://i.imgur.com/N8pFXuw.jpeg" alt="Royal Kaptan">
+    <div class="card-content">
+      <div class="title">Royal Kaptan</div>
+      <div class="price">Long: ₦25,000</div>
+      <div class="price">Short: ₦20,000</div>
+    </div>
+  </div>
+  <div class="card" onclick="openPayment('Modern Kaptan')">
+    <img src="https://i.imgur.com/fGR07Yb.jpeg" alt="Modern Kaptan">
+    <div class="card-content">
+      <div class="title">Modern Kaptan</div>
+      <div class="price">Long: ₦25,000</div>
+      <div class="price">Short: ₦20,000</div>
+    </div>
+  </div>
+  <div class="card" onclick="openPayment('Designer Kaptan')">
+    <img src="https://i.imgur.com/zNFZnyU.jpeg" alt="Designer Kaptan">
+    <div class="card-content">
+      <div class="title">Designer Kaptan</div>
+      <div class="price">Long: ₦25,000</div>
+      <div class="price">Short: ₦20,000</div>
+    </div>
+  </div>
+  <div class="card" onclick="openPayment('Special Edition')">
+    <img src="https://i.imgur.com/WMPnozi.jpeg" alt="Special Edition">
+    <div class="card-content">
+      <div class="title">Special Edition</div>
+      <div class="price">Long: ₦21,000</div>
+      <div class="price">Short: ₦18,000</div>
+    </div>
+  </div>
+  <div class="card" onclick="openPayment('Casual Kaptan')">
+    <img src="https://i.imgur.com/XCkBqyq.jpeg" alt="Casual Kaptan">
+    <div class="card-content">
+      <div class="title">Casual Kaptan</div>
+      <div class="price">Long: ₦21,000</div>
+      <div class="price">Short: ₦18,000</div>
+    </div>
+  </div>
+  <div class="card" onclick="openPayment('Luxury Kaptan')">
+    <img src="https://i.imgur.com/8UFOt2B.jpeg" alt="Luxury Kaptan">
+    <div class="card-content">
+      <div class="title">Luxury Kaptan</div>
+      <div class="price">Long: ₦25,000</div>
+      <div class="price">Short: ₦20,000</div>
+    </div>
+  </div>
+
+<!-- ===== AGBADA ===== -->
+<h2 class="section-heading">Agbada (Babban Riga)</h2>
+<p class="note">Click to message for prices or send your style via WhatsApp.</p>
+<div class="gallery">
+  <a href="https://wa.me/2348149608006" target="_blank" class="card">
+    <img src="https://i.imgur.com/sgwrBAE.jpeg" alt="Agbada 1">
+  </a>
+  <a href="https://wa.me/2348149608006" target="_blank" class="card">
+    <img src="https://i.imgur.com/qMB38em.jpeg" alt="Agbada 2">
+  </a>
+  <a href="https://wa.me/2348149608006" target="_blank" class="card">
+    <img src="https://i.imgur.com/MltE3Xz.jpeg" alt="Agbada 3">
+  </a>
+  <a href="https://wa.me/2348149608006" target="_blank" class="card">
+    <img src="https://i.imgur.com/HP8KH5P.jpeg" alt="Agbada 4">
+  </a>
+  <a href="https://wa.me/2348149608006" target="_blank" class="card">
+    <img src="https://i.imgur.com/je0jf4H.jpeg" alt="Agbada 5">
+  </a>
+  <a href="https://wa.me/2348149608006" target="_blank" class="card">
+  </a>
+</div>
+
+<!-- ===== CAPS ===== -->
+<h2 class="section-heading">Caps</h2>
+<p class="note">Available in different types. Click to message for prices or styles.</p>
+<div class="gallery">
+  <a href="https://wa.me/2348149608006" target="_blank" class="card">
+  </a>
+  <a href="https://wa.me/2348149608006" target="_blank" class="card">
+    <img src="https://i.imgur.com/5lWiyPc.jpeg" alt="Cap 2">
+  </a>
+  <a href="https://wa.me/2348149608006" target="_blank" class="card">
+    <img src="https://i.imgur.com/94mEN77.jpeg" alt="Cap 3">
+  </a>
+  <a href="https://wa.me/2348149608006" target="_blank" class="card">
+  </a>
+  <a href="https://wa.me/2348149608006" target="_blank" class="card">
+    <img src="https://i.imgur.com/J6jBBPv.jpeg" alt="Cap 5">
+  </a>
+</div>
+<!-- ===== PAYMENT MODAL ===== -->
+<div id="paymentModal" class="modal">
+  <div class="modal-content">
+    <h3 class="payment-header">Payment Information</h3>
+    <div class="payment-info">
+      <p>Account Number: <strong id="accountNumber">8149608006</strong>
+        <span class="copy-icon" onclick="copyAccount()">📋</span></p>
+      <p>Bank Name: <strong>Opay</strong></p>
+      <p>Account Name: <strong>Muhammad Muhammad</strong></p>
+    </div>
+    <button type="button" class="confirm-btn" onclick="proceedToMeasurements()">Confirm Payment</button>
+  </div>
+</div>
+
+<!-- ===== MEASUREMENTS MODAL ===== -->
+<div id="orderModal" class="modal">
+  <div class="modal-content">
+    <h2 class="measure-header" id="productTitle">Product Name</h2>
+    <form id="orderForm">
+      <label style="color:white;">Select Length:</label>
+      <select name="length" required>
+        <option value="Short">Short (✓)</option>
+        <option value="Long">Long (✓)</option>
+      </select>
+      <div class="input-group">
+        <label>Shoulder</label><input type="number" name="shoulder" value="10" min="10">
+        <label>Hand</label><input type="number" name="hand" value="10" min="10">
+      </div>
+      <div class="input-group">
+        <label>Shirt</label><input type="number" name="shirt" value="20" min="20">
+        <label>Trouser</label><input type="number" name="trouser" value="20" min="20">
+      </div>
+      <div class="input-group">
+        <label>Neck</label><input type="number" name="neck" value="5" min="5">
+        <label>Quantity</label><input type="number" name="quantity" value="1" min="1">
+      </div>
+      <textarea placeholder="Description (optional)"></textarea>
+      <button type="submit" class="confirm-btn">Send via WhatsApp</button>
+      <button type="button" class="cancel-btn" onclick="closeForm()">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+window.onload = function() {
+  let selectedProduct = '';
+
+  function openPayment(productName) {
+    selectedProduct = productName;
+    document.getElementById('productTitle').innerText = selectedProduct;
+    document.getElementById('paymentModal').style.display = 'flex';
+  }
+  window.openPayment = openPayment;
+
+  window.copyAccount = function() {
+    navigator.clipboard.writeText(document.getElementById('accountNumber').innerText);
+    alert('Account number copied!');
+  }
+
+  window.proceedToMeasurements = function() {
+    document.getElementById('paymentModal').style.display = 'none';
+    document.getElementById('orderModal').style.display = 'flex';
+  }
+
+  window.closeForm = function() {
+    document.getElementById('orderModal').style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    const paymentModal = document.getElementById('paymentModal');
+    const orderModal = document.getElementById('orderModal');
+    if(event.target == paymentModal) paymentModal.style.display='none';
+    if(event.target == orderModal) orderModal.style.display='none';
+  }
+
+  window.searchKaptans = function() {
+    const input = document.getElementById('searchBar').value.toLowerCase();
+    const cards = document.querySelectorAll('#gallery .card');
+    cards.forEach(card => {
+      const title = card.querySelector('.title').innerText.toLowerCase();
+      card.style.display = title.includes(input) ? 'block' : 'none';
+    });
+  }
+
+  document.getElementById('orderForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const length = this.length.value;
+    const shoulder = this.shoulder.value;
+    const hand = this.hand.value;
+    const shirt = this.shirt.value;
+    const trouser = this.trouser.value;
+    const neck = this.neck.value;
+    const quantity = this.quantity.value;
+    const description = this.querySelector('textarea').value;
+
+    const message = `Hello, I want to order ${selectedProduct}. Length: ${length}, Shoulder: ${shoulder}, Hand: ${hand}, Shirt: ${shirt}, Trouser: ${trouser}, Neck: ${neck}, Quantity: ${quantity}, Notes: ${description}`;
+    window.open(`https://wa.me/2348149608006?text=${encodeURIComponent(message)}`, '_blank');
+    closeForm();
+  });
+}
+</script>
+
+</body>
+</html>
